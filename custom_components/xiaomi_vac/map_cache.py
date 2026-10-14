@@ -26,7 +26,10 @@ _LOGGER = logging.getLogger(__name__)
 # `room_chains`, geometry, carpets, and segmented travelled paths. A v2 entry
 # holds the old vector, and `async_upsert` is a no-op while the blob's
 # content_hash is unchanged -- so without this bump stale data survives upgrade.
-STORAGE_VERSION = 3
+# v4 (dreame room contours + metre overlays): dreame vectors now carry
+# `room_chains` and metre-scaled overlays (were mm bbox-only); a v3 entry would
+# keep serving the old overlapping-bbox vector for an unchanged blob.
+STORAGE_VERSION = 4
 # HA's own Store file-format version, deliberately pinned. Raising it would make
 # Store.async_load hit its migration path and raise NotImplementedError, which
 # `async_load` can only report as "cache unreadable"; the payload check below is
